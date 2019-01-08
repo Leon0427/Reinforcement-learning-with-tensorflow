@@ -9,7 +9,11 @@ View more on my tutorial page: https://morvanzhou.github.io/tutorials/
 import numpy as np
 import pandas as pd
 import time
-
+import sys
+# detect python version
+PYTHON_VERSION = sys.version_info.major
+py2 = PYTHON_VERSION==2
+py3 = not py2
 np.random.seed(2)  # reproducible
 
 
@@ -64,13 +68,22 @@ def update_env(S, episode, step_counter):
     env_list = ['-']*(N_STATES-1) + ['T']   # '---------T' our environment
     if S == 'terminal':
         interaction = 'Episode %s: total_steps = %s' % (episode+1, step_counter)
-        print('\r{}'.format(interaction), end='')
+        # if py3:
+            # print('\r{}'.format(interaction), end='')
+        if py2:
+            print '\r{}'.format(interaction),
         time.sleep(2)
-        print('\r                                ', end='')
+        # if py3:
+            # print('\r                                ', end='')
+        if py2:
+            print '\r                                ',
     else:
         env_list[S] = 'o'
         interaction = ''.join(env_list)
-        print('\r{}'.format(interaction), end='')
+        # if py3:
+            # print('\r{}'.format(interaction), end='')
+        if py2:
+            print '\r{}'.format(interaction),
         time.sleep(FRESH_TIME)
 
 
